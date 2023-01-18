@@ -59,6 +59,7 @@
 #define INIT2660_REGISTER(REG) TMC2660_n::REG##_t REG##_register = TMC2660_n::REG##_t
 #define INIT2208_REGISTER(REG) TMC2208_n::REG##_t REG##_register = TMC2208_n::REG##_t
 #define INIT2224_REGISTER(REG) TMC2224_n::REG##_t REG##_register = TMC2224_n::REG##_t
+#define INIT2226_REGISTER(REG) TMC2226_n::REG##_t REG##_register = TMC2226_n::REG##_t
 #define SET_ALIAS(TYPE, DRIVER, NEW, ARG, OLD) TYPE (DRIVER::*NEW)(ARG) = &DRIVER::OLD
 
 #define TMCSTEPPER_VERSION 0x000703 // v0.7.3
@@ -825,9 +826,15 @@ class TMC5161Stepper : public TMC5160Stepper {
 class TMC2208Stepper : public TMCStepper {
 	public:
 	    TMC2208Stepper(Stream * SerialPort, float RS, uint8_t addr, uint16_t mul_pin1, uint16_t mul_pin2);
+		
 		TMC2208Stepper(Stream * SerialPort, float RS) :
 			TMC2208Stepper(SerialPort, RS, TMC2208_SLAVE_ADDR)
 			{}
+
+		TMC2208Stepper(Uart * SerialPort, float RS) : 
+			TMC2208Stepper((Stream *) SerialPort, RS, TMC2208_SLAVE_ADDR)
+			{}
+			
 		#if SW_CAPABLE_PLATFORM
 			TMC2208Stepper(uint16_t SW_RX_pin, uint16_t SW_TX_pin, float RS) :
 				TMC2208Stepper(SW_RX_pin, SW_TX_pin, RS, TMC2208_SLAVE_ADDR)
@@ -1097,6 +1104,20 @@ class TMC2224Stepper : public TMC2208Stepper {
 		bool spread();
 		bool step();
 		bool sel_a();
+		bool dir();
+		uint8_t version();
+};
+
+class TMC2226Stepper : public TMC2208Stepper {
+	public:
+		TMC2226Stepper(Uart * SerialPort, float RS) :
+		TMC2208Stepper(SerialPort, RS, TMC2208_SLAVE_ADDR)
+		{};
+		uint32_t IOIN();
+		bool enn();
+		bool pdn_uart();
+		bool spread();
+		bool step();
 		bool dir();
 		uint8_t version();
 };

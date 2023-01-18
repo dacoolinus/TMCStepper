@@ -12,6 +12,7 @@ TMC2208Stepper::TMC2208Stepper(Stream * SerialPort, float RS, uint8_t addr) :
 		defaults();
 	}
 
+
 TMC2208Stepper::TMC2208Stepper(Stream * SerialPort, float RS, uint8_t addr, uint16_t mul_pin1, uint16_t mul_pin2) :
 	TMC2208Stepper(SerialPort, RS)
 	{
