@@ -80,6 +80,36 @@ bool 	TMC2208Stepper::dedge()		{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); 
 bool 	TMC2208Stepper::diss2g()	{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.diss2g; 	}
 bool 	TMC2208Stepper::diss2vs()	{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.diss2vs; 	}
 
+void TMC2226Stepper::CHOPCONF(uint32_t input) {
+	CHOPCONF_register.sr = input;
+	write(CHOPCONF_register.address, CHOPCONF_register.sr);
+}
+uint32_t TMC2226Stepper::CHOPCONF() {
+	return read(CHOPCONF_register.address);
+}
+void TMC2226Stepper::toff	( uint8_t  B )	{ SET_REG(toff); 	}
+void TMC2226Stepper::hstrt	( uint8_t  B )	{ SET_REG(hstrt); 	}
+void TMC2226Stepper::hend	( uint8_t  B )	{ SET_REG(hend); 	}
+void TMC2226Stepper::tbl	( uint8_t  B )	{ SET_REG(tbl); 	}
+void TMC2226Stepper::vsense	( bool     B )	{ SET_REG(vsense); 	}
+void TMC2226Stepper::mres	( uint8_t  B )	{ SET_REG(mres); 	}
+void TMC2226Stepper::intpol	( bool     B )	{ SET_REG(intpol); 	}
+void TMC2226Stepper::dedge	( bool     B )	{ SET_REG(dedge); 	}
+void TMC2226Stepper::diss2g	( bool     B )	{ SET_REG(diss2g); 	}
+void TMC2226Stepper::diss2vs( bool     B )	{ SET_REG(diss2vs); }
+
+uint8_t TMC2226Stepper::toff()		{ TMC2226_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.toff; 	}
+uint8_t TMC2226Stepper::hstrt()		{ TMC2226_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.hstrt; 	}
+uint8_t TMC2226Stepper::hend()		{ TMC2226_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.hend; 	}
+uint8_t TMC2226Stepper::tbl()		{ TMC2226_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.tbl;	 	}
+bool 	TMC2226Stepper::vsense()	{ TMC2226_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.vsense; 	}
+uint8_t TMC2226Stepper::mres()		{ TMC2226_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.mres; 	}
+bool 	TMC2226Stepper::intpol()	{ TMC2226_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.intpol; 	}
+bool 	TMC2226Stepper::dedge()		{ TMC2226_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.dedge; 	}
+bool 	TMC2226Stepper::diss2g()	{ TMC2226_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.diss2g; 	}
+bool 	TMC2226Stepper::diss2vs()	{ TMC2226_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.diss2vs; 	}
+
+
 #define GET_REG_2660(SETTING) return CHOPCONF_register.SETTING;
 
 uint32_t TMC2660Stepper::CHOPCONF() { return CHOPCONF_register.sr; }

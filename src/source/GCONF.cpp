@@ -91,3 +91,32 @@ bool TMC2208Stepper::index_step()		{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); re
 bool TMC2208Stepper::pdn_disable()		{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.pdn_disable;		}
 bool TMC2208Stepper::mstep_reg_select()	{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.mstep_reg_select;	}
 bool TMC2208Stepper::multistep_filt()	{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.multistep_filt;		}
+
+
+uint32_t TMC2226Stepper::GCONF() {
+	return read(GCONF_register.address);
+}
+void TMC2226Stepper::GCONF(uint32_t input) {
+	GCONF_register.sr = input;
+	write(GCONF_register.address, GCONF_register.sr);
+}
+
+void TMC2226Stepper::I_scale_analog(bool B)		{ SET_REG(i_scale_analog);	}
+void TMC2226Stepper::internal_Rsense(bool B)	{ SET_REG(internal_rsense);	}
+void TMC2226Stepper::en_spreadCycle(bool B)		{ SET_REG(en_spreadcycle);	}
+void TMC2226Stepper::shaft(bool B) 				{ SET_REG(shaft);			}
+void TMC2226Stepper::index_otpw(bool B)			{ SET_REG(index_otpw);		}
+void TMC2226Stepper::index_step(bool B)			{ SET_REG(index_step);		}
+void TMC2226Stepper::pdn_disable(bool B)		{ SET_REG(pdn_disable);		}
+void TMC2226Stepper::mstep_reg_select(bool B)	{ SET_REG(mstep_reg_select);}
+void TMC2226Stepper::multistep_filt(bool B)		{ SET_REG(multistep_filt);	}
+
+bool TMC2226Stepper::I_scale_analog()	{ TMC2226_n::GCONF_t r{0}; r.sr = GCONF(); return r.i_scale_analog;		}
+bool TMC2226Stepper::internal_Rsense()	{ TMC2226_n::GCONF_t r{0}; r.sr = GCONF(); return r.internal_rsense;	}
+bool TMC2226Stepper::en_spreadCycle()	{ TMC2226_n::GCONF_t r{0}; r.sr = GCONF(); return r.en_spreadcycle;		}
+bool TMC2226Stepper::shaft()			{ TMC2226_n::GCONF_t r{0}; r.sr = GCONF(); return r.shaft;				}
+bool TMC2226Stepper::index_otpw()		{ TMC2226_n::GCONF_t r{0}; r.sr = GCONF(); return r.index_otpw;			}
+bool TMC2226Stepper::index_step()		{ TMC2226_n::GCONF_t r{0}; r.sr = GCONF(); return r.index_step;			}
+bool TMC2226Stepper::pdn_disable()		{ TMC2226_n::GCONF_t r{0}; r.sr = GCONF(); return r.pdn_disable;		}
+bool TMC2226Stepper::mstep_reg_select()	{ TMC2226_n::GCONF_t r{0}; r.sr = GCONF(); return r.mstep_reg_select;	}
+bool TMC2226Stepper::multistep_filt()	{ TMC2226_n::GCONF_t r{0}; r.sr = GCONF(); return r.multistep_filt;		}
