@@ -347,9 +347,10 @@ bool TMC2226Stepper::ms2()			{ TMC2226_n::IOIN_t r{0}; r.sr = IOIN(); return r.m
 bool TMC2226Stepper::diag()			{ TMC2226_n::IOIN_t r{0}; r.sr = IOIN(); return r.diag;		    }
 bool TMC2226Stepper::pdn_uart()		{ TMC2226_n::IOIN_t r{0}; r.sr = IOIN(); return r.pdn_uart;	    }
 bool TMC2226Stepper::step()			{ TMC2226_n::IOIN_t r{0}; r.sr = IOIN(); return r.step;	    	}
-bool TMC2226Stepper::sel_a()		{ TMC2226_n::IOIN_t r{0}; r.sr = IOIN(); return r.spread_en;	}
+bool TMC2226Stepper::spread_en()	{ TMC2226_n::IOIN_t r{0}; r.sr = IOIN(); return r.spread_en;	}
 bool TMC2226Stepper::dir()			{ TMC2226_n::IOIN_t r{0}; r.sr = IOIN(); return r.dir;		    }
 uint8_t TMC2226Stepper::version() 	{ TMC2226_n::IOIN_t r{0}; r.sr = IOIN(); return r.version;	    }
+
 
 
 uint16_t TMC2226Stepper::FACTORY_CONF() {
@@ -364,6 +365,7 @@ void TMC2226Stepper::ottrim(uint8_t B)	{ FACTORY_CONF_register.ottrim = B; write
 uint8_t TMC2226Stepper::fclktrim()		{ FACTORY_CONF_t r{0}; r.sr = FACTORY_CONF(); return r.fclktrim; }
 uint8_t TMC2226Stepper::ottrim()		{ FACTORY_CONF_t r{0}; r.sr = FACTORY_CONF(); return r.ottrim; }
 
+uint16_t TMC2226Stepper::sg_result(){ TMC2226_n::SG_RESULT_t r{0}; r.sr = read(TMC2226_n::SG_RESULT_t::address); return r.upper | r.lower; }
 void TMC2226Stepper::VACTUAL(uint32_t input) {
 	VACTUAL_register.sr = input;
 	write(VACTUAL_register.address, VACTUAL_register.sr);

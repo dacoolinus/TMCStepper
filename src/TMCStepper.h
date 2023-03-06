@@ -122,13 +122,6 @@ public:
 	int16_t cur_a();
 	int16_t cur_b();
 
-	// practichem added
-	void toff(uint8_t B);
-	uint8_t toff();
-	void begin();
-	void pwm_autoscale(bool B);
-	bool pwm_autoscale();
-
 protected:
 	TMCStepper(float RS) : Rsense(RS){};
 	INIT_REGISTER(IHOLD_IRUN){{.sr = 0}}; // 32b
@@ -1174,14 +1167,11 @@ class TMC2226Stepper : public TMCStepper
 {
 public:
 	TMC2226Stepper(Stream *SerialPort, float RS, uint8_t addr, uint16_t mul_pin1, uint16_t mul_pin2);
-
+	TMC2226Stepper(Stream *SerialPort, float RS, uint8_t addr);
 	TMC2226Stepper(Stream *SerialPort, float RS) : TMC2226Stepper(SerialPort, RS, TMC2226_SLAVE_ADDR)
 	{
 	}
 
-	TMC2226Stepper(Uart *SerialPort, float RS) : TMC2226Stepper((Stream *)SerialPort, RS, TMC2226_SLAVE_ADDR)
-	{
-	}
 
 #if SW_CAPABLE_PLATFORM
 	TMC2226Stepper(uint16_t SW_RX_pin, uint16_t SW_TX_pin, float RS) : TMC2226Stepper(SW_RX_pin, SW_TX_pin, RS, TMC2226_SLAVE_ADDR)
@@ -1225,6 +1215,9 @@ public:
 	bool mstep_reg_select();
 	bool multistep_filt();
 
+	//R
+	uint16_t sg_result();
+
 	// R: IFCNT
 	uint8_t IFCNT();
 
@@ -1248,7 +1241,7 @@ public:
 	bool diag();
 	bool pdn_uart();
 	bool step();
-	bool sel_a();
+	bool spread_en();
 	bool dir();
 	uint8_t version();
 
@@ -1361,7 +1354,6 @@ protected:
 		constexpr static uint8_t address = 0x05;
 	};
 
-	TMC2226Stepper(Stream *SerialPort, float RS, uint8_t addr);
 #if SW_CAPABLE_PLATFORM
 	TMC2226Stepper(uint16_t SW_RX_pin, uint16_t SW_TX_pin, float RS, uint8_t addr);
 #endif

@@ -148,6 +148,15 @@ namespace TMC2226_n
     struct SG_RESULT_t
     {
         constexpr static uint8_t address = 0x41;
+        union
+        {
+            uint32_t sr;
+            struct
+            {
+                uint16_t upper : 16,
+                lower : 9;
+            };
+        };
     };
 
     struct COOLCONF_t
